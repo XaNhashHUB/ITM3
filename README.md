@@ -135,3 +135,79 @@ docker ps -a
 
 #### Заходим в контейнер в интерактивном режиме
 <img src="images/exec.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+#### Редактируем конфиг nginx
+<img src="images/listen.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+#### Перезагружаем nginx внутри контейнера
+nginx -s reload
+Проверяю доступность портов внутри контейнера
+curl http://127.0.0.1:80
+curl http://127.0.0.1:81
+<img src="images/proverka.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+#### Удаление работающего контейнера, не останавливая его
+docker rm -f custom-nginx-t2
+<img src="images/udalit.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+## Задача 4. Работа с общими томами между контейнерами
+
+
+### 1. Запускаю первый контейнер (CentOS) с примонтированной директорией
+
+Текущая директория хоста монтируется в /data контейнера:
+
+docker run -d --name z4-centos -v $(pwd):/data centos:7 sleep infinity
+
+<img src="images/Centos.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+### 2. Запускаю второй контейнер (Debian)
+docker run -d --name z4-debian -v $(pwd):/data debian:latest sleep infinity
+
+<img src="images/debian.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+### Подключаюсь к первому контейнеру (CentOS) и создаю файл
+docker exec -it z4-centos bash
+echo "Hello from CentOS container!" > /data/from_centos.txt
+<img src="images/centosfile.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+### Добавляю файл на хостовой машине (в $(pwd))
+
+echo "Файл с хоста" > host_file.txt
+
+<img src="images/hostfile.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+
+### Подключаюсь ко второму контейнеру (Debian) и проверяю содержимое /data
+<img src="images/proverkaDebian.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+## Задача 5. Работа с Portainer, локальным Registry и Compose Includes
+
+---
+
+### Шаг 1. Создаю директорию и два compose-файла
+
+mkdir -p /tmp/ZGU/docker/task
+cd /tmp/ZGU/docker/task
+
+<img src="images/create.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+Создаю файл compose.yaml
+Создаю файл docker-compose.yaml
+
+docker compose up -d
+### Изменяю compose.yaml так, чтобы запускались оба файла
+<img src="images/zapusk.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+
+<img src="images/twoserv.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+
+### Настройка Portainer
+https://127.0.0.1:9000
+Прохожу первичную настройку:
+задаю логин и пароль администратора.
+
+### Шаг 5. Деплой стека через web-editor Portainer
+
+<img src="images/Json1.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+<img src="images/Json2.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
