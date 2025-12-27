@@ -1,4 +1,4 @@
-<img width="640" height="515" alt="Dockerfile" src="https://github.com/user-attachments/assets/397ca452-326e-48e0-aed5-385a4757fbec" /># Лабораторная работа: Docker и Docker Compose
+# Лабораторная работа: Docker и Docker Compose
 
 Отчет по выполнению лабораторной работы с пошаговым описанием действий и местами для скриншотов.
 
@@ -7,6 +7,8 @@
 ## Задача 1. Установка Docker и Docker Compose, создание кастомного образа Nginx
 
 ### Шаг 1. Установка Docker и Docker Compose
+
+<img width="640" height="515" alt="Dockerfile" src="https://github.com/user-attachments/assets/397ca452-326e-48e0-aed5-385a4757fbec" />
 
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg lsb-release
