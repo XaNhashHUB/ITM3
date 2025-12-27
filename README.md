@@ -8,8 +8,6 @@
 
 ### Шаг 1. Установка Docker и Docker Compose
 
-<img width="640" height="515" alt="Dockerfile" src="https://github.com/user-attachments/assets/397ca452-326e-48e0-aed5-385a4757fbec" />
-
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg lsb-release
 sudo mkdir -p /etc/apt/keyrings
@@ -28,9 +26,10 @@ https://hub.docker.com/repository/docker/xanhashdocker/custom-nginx/general
 ---
 Создание файла /etc/docker/daemon.json:
 
+<img width="452" height="176" alt="curl" src="https://github.com/user-attachments/assets/af8d723c-0e5c-481b-9e47-7396114164e6" />
 
-<img width="452" height="176" alt="curl" src="https://github.com/user-attachments/assets/fe05c367-abe5-4c8a-917f-d6c8b8678ded" />
-<img width="1427" height="76" alt="Переименованнй докер" src="https://github.com/user-attachments/assets/66ff23ed-4793-4ef8-998c-c67a9cc6b3b2" />
+<img width="1427" height="76" alt="Переименованнй докер" src="https://github.com/user-attachments/assets/20d14038-7be3-4fb0-b429-0e63736316d3" />
+
 
 
 ---
@@ -40,22 +39,19 @@ https://hub.docker.com/repository/docker/xanhashdocker/custom-nginx/general
 
     Создал публичный репозиторий с именем custom-nginx.
 
-<img width="728" height="320" alt="3 1" src="https://github.com/user-attachments/assets/6089445b-2d2e-4668-b52a-394c8b7a6c96" />
+<img width="728" height="320" alt="3 1" src="https://github.com/user-attachments/assets/12275190-aceb-44f3-87d5-f19bb7c93aed" />
 
-<img width="1386" height="55" alt="3 1 1" src="https://github.com/user-attachments/assets/12fa3247-d1fb-4469-8d44-e8e1c68d7501" />
-
-<img width="1607" height="242" alt="допзадание" src="https://github.com/user-attachments/assets/f2f789d2-6a7d-48dd-a5b8-014e8af61b76" />
-
-<img width="707" height="242" alt="При измененном порте" src="https://github.com/user-attachments/assets/c34cf017-f7e6-47c8-ad96-6957513de7a8" />
-
-<img width="986" height="171" alt="Проблема 80 порта" src="https://github.com/user-attachments/assets/0fda7b1e-f825-4a6f-8f23-c4eec567c6c1" />
+<img width="1386" height="55" alt="3 1 1" src="https://github.com/user-attachments/assets/33e144d7-7992-436d-88d8-ca4a45556615" />
 
 
 ---
 ### Шаг 4. Скачивание образа Nginx
 docker pull nginx:1.21.1
 docker images
-<img src="images/nginx.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
+<img width="707" height="242" alt="При измененном порте" src="https://github.com/user-attachments/assets/57431d0b-b0b4-4dce-8f79-221cb5236e57" />
+<img width="986" height="171" alt="Проблема 80 порта" src="https://github.com/user-attachments/assets/f3369c5e-f587-442d-8898-8bdfe4f85afe" />
+<img width="1607" height="242" alt="допзадание" src="https://github.com/user-attachments/assets/62fa73da-240c-47e2-8fdc-caeef8d2efe4" />
 
 ---
 ### Шаг 5. Создание Dockerfile и index.html
@@ -72,8 +68,7 @@ Hey, ZGU!
 #### Файл Dockerfile
 FROM nginx:1.21.1
 COPY index.html /usr/share/nginx/html/index.html
-<img width="1608" height="212" alt="4" src="https://github.com/user-attachments/assets/705f01ac-0a06-4c61-ba53-e98f54e7e303" />
-<img width="1122" height="80" alt="образы ОС" src="https://github.com/user-attachments/assets/d12bbcc2-a770-457f-93e9-88a29455fa31" />
+
 
 
 ---
