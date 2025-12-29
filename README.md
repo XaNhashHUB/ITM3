@@ -8,41 +8,23 @@
 
 ### Шаг 1. Установка Docker и Docker Compose
 
-sudo apt update
-sudo apt install -y ca-certificates curl gnupg lsb-release
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-docker --version
-docker compose version
 
-<img width="640" height="515" alt="Dockerfile" src="https://github.com/user-attachments/assets/652691db-6540-471d-a2d8-85f4e2533f2f" />
+<img width="1329" height="405" alt="Установленные компоненты" src="https://github.com/user-attachments/assets/2f7c82ad-dd51-4eb1-984e-93ef8885c4b7" />
 
-https://hub.docker.com/repository/docker/xanhashdocker/custom-nginx/general
 
 ### Шаг 2. Настройка зеркал Docker (если Docker Hub недоступен)
 ---
-Создание файла /etc/docker/daemon.json:
 
-<img width="452" height="176" alt="curl" src="https://github.com/user-attachments/assets/af8d723c-0e5c-481b-9e47-7396114164e6" />
-
-<img width="1427" height="76" alt="Переименованнй докер" src="https://github.com/user-attachments/assets/20d14038-7be3-4fb0-b429-0e63736316d3" />
-
-
-
+    Сайт был доступен, поэтому пропустил
+    
 ---
 ### Шаг 3. Регистрация и создание репозитория на Docker Hub
+
 
     Зарегистрировался на https://hub.docker.com
 
     Создал публичный репозиторий с именем custom-nginx.
-
-<img width="728" height="320" alt="3 1" src="https://github.com/user-attachments/assets/12275190-aceb-44f3-87d5-f19bb7c93aed" />
-
-<img width="1386" height="55" alt="3 1 1" src="https://github.com/user-attachments/assets/33e144d7-7992-436d-88d8-ca4a45556615" />
-
+    
 
 ---
 ### Шаг 4. Скачивание образа Nginx
