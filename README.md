@@ -7,11 +7,11 @@
 ## Задача 1. Установка Docker и Docker Compose, создание кастомного образа Nginx
 
 ### Шаг 1. Установка Docker и Docker Compose
-
+---
 
 <img width="1329" height="405" alt="Установленные компоненты" src="https://github.com/user-attachments/assets/2f7c82ad-dd51-4eb1-984e-93ef8885c4b7" />
 
-
+---
 ### Шаг 2. Настройка зеркал Docker (если Docker Hub недоступен)
 ---
 
@@ -19,24 +19,26 @@
     
 ---
 ### Шаг 3. Регистрация и создание репозитория на Docker Hub
-
-
+---
     Зарегистрировался на https://hub.docker.com
 
     Создал публичный репозиторий с именем custom-nginx.
-    
+<img width="2146" height="1218" alt="image" src="https://github.com/user-attachments/assets/c7ff6296-0c5c-4b77-88ff-7896e913ac65" />
 
 ---
 ### Шаг 4. Скачивание образа Nginx
-docker pull nginx:1.21.1
-docker images
 
-<img width="707" height="242" alt="При измененном порте" src="https://github.com/user-attachments/assets/57431d0b-b0b4-4dce-8f79-221cb5236e57" />
-<img width="986" height="171" alt="Проблема 80 порта" src="https://github.com/user-attachments/assets/f3369c5e-f587-442d-8898-8bdfe4f85afe" />
-<img width="1607" height="242" alt="допзадание" src="https://github.com/user-attachments/assets/62fa73da-240c-47e2-8fdc-caeef8d2efe4" />
+docker pull nginx:1.21.1
+
+    Скриншот с образом на шаге 1
 
 ---
 ### Шаг 5. Создание Dockerfile и index.html
+---
+
+#### Файл Dockerfile
+FROM nginx:1.21.1
+COPY index.html /usr/share/nginx/html/index.html
 
 #### Файл index.html
 <html>
@@ -47,47 +49,55 @@ Hey, ZGU!
 <p>I will be IT Engineer!</p>
 </body>
 </html>
-#### Файл Dockerfile
-FROM nginx:1.21.1
-COPY index.html /usr/share/nginx/html/index.html
 
+    Команды
+<img width="1467" height="1125" alt="indexHTML" src="https://github.com/user-attachments/assets/55472880-95c7-43cf-9bff-e82bd79bc125" />
 
+    Файлы
+<img width="1149" height="913" alt="папка с файлами" src="https://github.com/user-attachments/assets/a03aea3d-0470-4be3-ac1d-3a1300c228cd" />
 
 ---
 ### Шаг 6. Сборка и отправка образа на Docker Hub
-docker build -t wartabas/custom-nginx:1.0.0 .
+---
+
+docker build -t custom-nginx:1.0.0 .
+<img width="1461" height="650" alt="болд докера" src="https://github.com/user-attachments/assets/f8ff67fa-d499-4158-baa0-4855e3cc5ffc" />
+
 docker login
-docker push wartabas/custom-nginx:1.0.0
----
+<img width="1447" height="575" alt="логин" src="https://github.com/user-attachments/assets/c8e62339-35ab-42bb-8028-6a77380a9933" />
+
+docker tag custom-nginx:1.0.0 xanhashdocker/custom-nginx:1.0.0
+docker push xanhashdocker/custom-nginx:1.0.0
+
+<img width="1834" height="586" alt="пуш докера" src="https://github.com/user-attachments/assets/e588c9d9-825f-47d1-89b2-804d919ade49" />
+<img width="2148" height="1400" alt="докерхаб с тэгом" src="https://github.com/user-attachments/assets/351f9fdf-7ad0-4c78-baa2-b3346be0aa69" />
+
+https://hub.docker.com/repository/docker/xanhashdocker/custom-nginx/general
 
 ---
-
 ## Задача 2. Запуск контейнера custom-nginx:1.0.0
 
 ### 1. Запуск контейнера
 
 Запускаю контейнер из своего образа custom-nginx:1.0.0:
 
-docker run -d --name "NavruzovGamzabegZarikovich-custom-nginx-t2" -p 127.0.0.1:8080:80 custom-nginx:1.0.0
+docker run -d --name "Budarev-custom-nginx-t2" -p 127.0.0.1:8080:80 custom-nginx:1.0.0
+<img width="1928" height="73" alt="имя" src="https://github.com/user-attachments/assets/0d706412-ae9d-4dc6-80f3-976993069b0b" />
 
-<img src="images/FIO.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
 
 Далее идет переименование контейнера
-docker rename "NavruzovGamzabegZarikovich-custom-nginx-t2" custom-nginx-t2
-<img src="images/rename.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
 
-Выполнение комплексной команды
-date +"%d-%m-%Y %T.%N %Z" ; sleep 0.150 ; docker ps ; ss -tlpn | grep 127.0.0.1:8080 ; docker logs custom-nginx-t2 -n1 ; docker exec -it custom-nginx-t2 base64 /usr/share/nginx/html/index.html
-<img src="images/complex.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker rename "Budarev-custom-nginx-t2" custom-nginx-t2
+<img width="2493" height="268" alt="переименование" src="https://github.com/user-attachments/assets/0bc19898-f058-4730-bee3-7d5a51193c2e" />
+
 
 Провекра доступности сайта
+
 curl http://127.0.0.1:8080
-<img src="images/firstcurl.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+<img width="881" height="310" alt="image" src="https://github.com/user-attachments/assets/027eaaa5-ea4d-425e-bf28-690fb0d3e1a4" />
 
 
 ## Задача 3. Работа со стандартными потоками, конфигурацией Nginx и портами
-
-
 
 ### 1. Узнаём, как подключиться к STDIN/STDOUT/STDERR контейнера
 
