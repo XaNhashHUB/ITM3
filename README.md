@@ -104,68 +104,70 @@ curl http://127.0.0.1:8080
 Использую команду:
 
 docker attach custom-nginx-t2
-<img src="images/attach.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
 
  
 После выполнения:
 docker attach custom-nginx-t2
+<img width="728" height="320" alt="3 1" src="https://github.com/user-attachments/assets/20110bac-fa9d-46d0-8df7-4c344bca1135" />
 
 Я нажимаю Ctrl-C.
 Контейнер останавливается.
+<img width="1386" height="55" alt="3 1 1" src="https://github.com/user-attachments/assets/ef2c8e20-bf0f-4381-b7ad-ec063c3c6755" />
 
 #### Проверка состояния контейнера
 docker ps -a
-<img src="images/dockerps.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
 
 #### Перезапуск контейнера
-<img src="images/restart.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker start custom-nginx-t2
+
 
 #### Заходим в контейнер в интерактивном режиме
-<img src="images/exec.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker exec -it custom-nginx-t2 /bin/bash
 
 #### Редактируем конфиг nginx
-<img src="images/listen.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
 
 #### Перезагружаем nginx внутри контейнера
 nginx -s reload
 Проверяю доступность портов внутри контейнера
 curl http://127.0.0.1:80
 curl http://127.0.0.1:81
-<img src="images/proverka.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+<img width="707" height="242" alt="При измененном порте" src="https://github.com/user-attachments/assets/5c61ed43-ddcb-4b66-84eb-94d976613e37" />
+
 
 #### Удаление работающего контейнера, не останавливая его
 docker rm -f custom-nginx-t2
-<img src="images/udalit.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
 
 ## Задача 4. Работа с общими томами между контейнерами
+<img width="1607" height="242" alt="допзадание" src="https://github.com/user-attachments/assets/4b532dfa-3195-4fe7-a1d9-9c609f6107fb" />
 
 
 ### 1. Запускаю первый контейнер (CentOS) с примонтированной директорией
 
 Текущая директория хоста монтируется в /data контейнера:
 
-docker run -d --name z4-centos -v $(pwd):/data centos:7 sleep infinity
-
-<img src="images/Centos.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker run -d --name centos-container -v "$(pwd):/data" alpine:latest tail -f /dev/null
 
 ### 2. Запускаю второй контейнер (Debian)
-docker run -d --name z4-debian -v $(pwd):/data debian:latest sleep infinity
+docker run -d --name debian-container -v "$(pwd):/data" alpine:latest tail -f /dev/null
 
-<img src="images/debian.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+<img width="1064" height="174" alt="образы" src="https://github.com/user-attachments/assets/a763c6f9-e438-4099-9ca7-3e9859f3655c" />
 
 ### Подключаюсь к первому контейнеру (CentOS) и создаю файл
 docker exec -it z4-centos bash
-echo "Hello from CentOS container!" > /data/from_centos.txt
-<img src="images/centosfile.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker exec centos-container sh -c "echo 'File created FROM CentOS container' > /data/centos_file.txt"
+
 ### Добавляю файл на хостовой машине (в $(pwd))
 
-echo "Файл с хоста" > host_file.txt
-
-<img src="images/hostfile.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+echo "File created ON Host machine" > host_file.txt
 
 
 ### Подключаюсь ко второму контейнеру (Debian) и проверяю содержимое /data
-<img src="images/proverkaDebian.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+docker exec debian-container sh -c "echo '=== LISTING /data ===' && ls -la /data && echo '=== CONTENT ===' && cat /data/*.txt"
+
+![photo_2025-12-29_14-42-40](https://github.com/user-attachments/assets/92c6c31b-a191-4f54-afc3-657816548a11)
+
 
 ## Задача 5. Работа с Portainer, локальным Registry и Compose Includes
 
@@ -176,17 +178,15 @@ echo "Файл с хоста" > host_file.txt
 mkdir -p /tmp/ZGU/docker/task
 cd /tmp/ZGU/docker/task
 
-<img src="images/create.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
-
 Создаю файл compose.yaml
 Создаю файл docker-compose.yaml
 
+![два файла](https://github.com/user-attachments/assets/8d383647-8533-4389-87a3-d9ecd6f55a4b)
+
 docker compose up -d
 ### Изменяю compose.yaml так, чтобы запускались оба файла
-<img src="images/zapusk.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+<img width="2302" height="957" alt="1" src="https://github.com/user-attachments/assets/c739b956-0da4-4faa-a107-7bc3cb64cd8b" />
 
-
-<img src="images/twoserv.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
 
 
 ### Настройка Portainer
@@ -195,6 +195,8 @@ https://127.0.0.1:9000
 задаю логин и пароль администратора.
 
 ### Шаг 5. Деплой стека через web-editor Portainer
+![12](https://github.com/user-attachments/assets/ebbfddd6-5fac-468c-9f54-18a20b334491)
+![13](https://github.com/user-attachments/assets/0a5575ae-b3b0-4e92-86b3-905d675a2302)
+![14](https://github.com/user-attachments/assets/75efa5b3-00b1-4e21-b574-f749a92bbbfd)
 
-<img src="images/Json1.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
-<img src="images/Json2.png" alt="Скриншот с заданными размерами" width="1000" height="auto">
+
